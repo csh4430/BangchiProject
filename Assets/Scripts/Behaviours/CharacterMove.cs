@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using Characters;
+using Characters.Enemies;
 using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.Serialization;

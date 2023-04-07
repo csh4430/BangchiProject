@@ -33,20 +33,22 @@ namespace Characters
         public Dictionary<int, CharacterSkill> Skills = new(); 
         protected TargetFinder _targetFinder;
         [SerializeField] protected float chaseRange = 1f;
+        [SerializeField] private float attackRange = 1f;
 
 
         protected virtual void Awake()
         {
             GameManager.Instance.characters.Add(this);
-            OnMove += (v) => AddState(CharacterState.Moving);
+            OnMove += (v) => DoState(CharacterState.Moving);
             OnMove += (v) => RemoveState(CharacterState.Attacking);
-            OnDie += () => AddState(CharacterState.Death);
-            OnAttack += () => AddState(CharacterState.Attacking);
-            OnAttack += () => AddState(CharacterState.Sleep);
-            OnKnockBack += (v) => AddState(CharacterState.KnockBack);
+            OnDie += () => DoState(CharacterState.Death);
+            OnAttack += () => DoState(CharacterState.Attacking);
+            OnAttack += () => DoState(CharacterState.Sleep);
+            OnKnockBack += (v) => DoState(CharacterState.KnockBack);
             OnFire += () => AddState(CharacterState.Fire);
+            OnDamage += f => RemoveState(CharacterState.Attacking); 
             _targetFinder = GetComponent<TargetFinder>();
-
+            _targetFinder.attackRange = attackRange;
         }
         protected void Chase()
         {
@@ -63,11 +65,30 @@ namespace Characters
                 OnChase?.Invoke(dir);
             }
         }
+        protected virtual void Attack()
+        {
+            if (!state.HasFlag(CharacterState.Moving))
+            {
+                if(_targetFinder.AttackTarget == null) return;
+                var dir = _targetFinder.AttackTarget.transform.position;
+                
+                if (Vector2.Distance(transform.position, dir) <= attackRange)
+                {
+                    if(state.HasFlag(CharacterState.Attacking)) return;
+                    if(_targetFinder.AttackTarget.state.HasFlag(CharacterState.Death)) return;
+                    OnAttack?.Invoke();
+                }
+            }
+        }
         public void RemoveState(CharacterState value)
         {
             state &= ~value;
         }
         public void AddState(CharacterState value)
+        {
+            state |= value;
+        }
+        public void DoState(CharacterState value)
         {
             state &= ~CharacterState.Sleep;
             state |= value;
@@ -92,10 +113,12 @@ namespace Characters
 
             }
         }
-
-        protected virtual void OnDrawGizmos()
+        
+        protected void OnDrawGizmos()
         {
-            Gizmos.color = Color.magenta;
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(transform.position, attackRange);
+            Gizmos.color = Color.green;
             Gizmos.DrawWireSphere(transform.position, chaseRange);
         }
     }

@@ -3,22 +3,20 @@ using System.Collections;
 using Behaviours;
 using Characters;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace UI
 {
-    public class HealthBar : MonoBehaviour
+    public class HealthBar : Bar
     {
-        public Transform valueTrm;
         public Transform backgroundTrm;
-        
-        public CharacterStat stat;
-        
+
         private void Awake()
         {
-            stat.OnDamage += OnDamage;
+            stat.OnDamage += OnChange;
         }
         
-        private void OnDamage()
+        protected override void OnChange()
         {
             if(gameObject.activeInHierarchy)
                 StartCoroutine(DamageCoroutine());
@@ -28,6 +26,7 @@ namespace UI
         {
             var value = (stat.currentHealth) / stat.maxHealth;
             valueTrm.localScale = new Vector3(value, 1, 1);
+            LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)valueTrm.parent);
             yield return new WaitForSeconds(0.2f);
             backgroundTrm.localScale = new Vector3(value, 1, 1);
         }

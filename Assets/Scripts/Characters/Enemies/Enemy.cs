@@ -8,6 +8,7 @@ namespace Characters.Enemies
         private void Update()
         {
             Chase();
+            Attack();
         }
     }
 }

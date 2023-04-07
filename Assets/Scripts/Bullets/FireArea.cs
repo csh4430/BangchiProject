@@ -16,7 +16,7 @@ namespace Bullets
         
         private void Awake()
         {
-            transform.localScale *= fireRange * 2;
+            transform.localScale *= fireRange;
         }
 
         private void Update()

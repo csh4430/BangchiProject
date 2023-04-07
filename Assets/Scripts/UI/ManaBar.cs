@@ -3,22 +3,20 @@ using System.Collections;
 using Behaviours;
 using Characters;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace UI
 {
-    public class ManaBar : MonoBehaviour
+    public class ManaBar : Bar
     {
-        public Transform valueTrm;
         public Transform backgroundTrm;
-        
-        public CharacterStat stat;
         
         private void Awake()
         {
-            stat.OnCost += OnCost;
+            stat.OnCost += OnChange;
         }
         
-        private void OnCost()
+        protected override void OnChange()
         {
             if(gameObject.activeInHierarchy)
                 StartCoroutine(CostCoroutine());
@@ -28,6 +26,7 @@ namespace UI
         {
             var value = (stat.currentMana) / stat.maxMana;
             valueTrm.localScale = new Vector3(value, 1, 1);
+            LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)valueTrm.parent);
             yield return new WaitForSeconds(0.2f);
             backgroundTrm.localScale = new Vector3(value, 1, 1);
         }

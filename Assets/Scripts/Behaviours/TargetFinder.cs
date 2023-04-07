@@ -18,13 +18,15 @@ namespace Behaviours
         public float attackRange = 0;
         public float delay;
         private float _time;
+        private int _detectedCount = 0;
+        public int DetectedCount => _detectedCount;
 
-        private void Awake()
+        protected virtual void Awake()
         {
             thisCharacter = GetComponent<Character>();
         }
 
-        private void Update()
+        protected virtual void Update()
         {
             
             _time += Time.deltaTime;
@@ -45,8 +47,11 @@ namespace Behaviours
 
         private void FindTarget()
         {
-            var enemys = GameManager.Instance.characters.FindAll(c => c != thisCharacter).OrderBy(c => Vector2.Distance(transform.position, c.transform.position));
-            var closest = enemys.FirstOrDefault();
+            var enemies = GameManager.Instance.characters.FindAll(c => c != thisCharacter).OrderBy(c => Vector2.Distance(transform.position, c.transform.position));
+            var activeEnemies = enemies.Where(e => e.gameObject.activeSelf);
+            var characters = activeEnemies.ToList();
+            _detectedCount = characters.Count();
+            var closest = characters.FirstOrDefault();
             if (closest == ChaseTarget) return;
             ChaseTarget = closest;
         }

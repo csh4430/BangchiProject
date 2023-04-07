@@ -12,6 +12,7 @@ namespace Behaviours
         public float maxMana = 100;
         public float currentMana;
         public float manaChargeMultiplier = 1;
+        public float currentShield = 0;
         
         public Action OnDamage;
         public Action OnCost;
@@ -30,7 +31,7 @@ namespace Behaviours
             currentMana = maxMana;
         }
 
-        private void Update()
+        protected virtual void Update()
         {
             if(currentMana >= maxMana) currentMana = maxMana;
             else Cost(-Time.deltaTime * manaChargeMultiplier);
@@ -52,10 +53,25 @@ namespace Behaviours
                 }
             }
         }
-        
-        private void Damage(float value)
+
+        protected void Damage(float value)
         {
-            currentHealth -= value;
+            if (ThisCharacter.state.HasFlag(CharacterState.Death)) return;
+            var subValue = value;
+            if (currentShield > 0)
+            {
+                if (currentShield >= subValue)
+                {
+                    currentShield -= subValue;
+                    subValue = 0;
+                }
+                else
+                {
+                    subValue -= currentShield;
+                    currentShield = 0;
+                }
+            }
+            currentHealth -= subValue;
             if(currentHealth < 0) currentHealth = 0;
             OnDamage?.Invoke();
             if (currentHealth == 0)
@@ -69,6 +85,12 @@ namespace Behaviours
             currentMana -= value;
             if(currentMana < 0) currentMana = 0;
             OnCost?.Invoke();
+        }
+        
+        public void ArmedShield(float value)
+        {
+            currentShield = value;
+            OnDamage?.Invoke();
         }
 
         public void Die()

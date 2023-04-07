@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using Characters;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -11,16 +12,15 @@ namespace Behaviours
 
         private Animator _thisAnimator;
         [SerializeField] private SpriteRenderer mainRenderer;
+        private Material _mainMaterial;
         private TargetFinder _targetFinder;
         
         
         private static readonly int IsMove = Animator.StringToHash("IsMove");
         private static readonly int TrgAttack = Animator.StringToHash("TrgAttack");
         private static readonly int AttackSpeed = Animator.StringToHash("AttackSpeed");
-        private static readonly int TrgDamage = Animator.StringToHash("TrgDamage");
         private static readonly int TrgDeath = Animator.StringToHash("TrgDeath");
         private static readonly int TrgDash = Animator.StringToHash("TrgDash");
-        private static readonly int IsDead = Animator.StringToHash("IsDead");
         protected float _lastDir = 1;
 
         protected override void Awake()
@@ -34,23 +34,26 @@ namespace Behaviours
             var attack = ThisCharacter.GetComponent<CharacterAttack>();
             if(attack != null)
                 attack.OnAttack += PlayAttackAnimation;
-            ThisCharacter.OnDamage += PlayDamageAnimation;
+            ThisCharacter.OnDamage += PlayDamageBlink;
             ThisCharacter.OnDie += PlayDeathAnimation;
             var dash = ThisCharacter.GetComponent<DashSkill>();
             if(dash != null)
                 dash.OnSkill.AddListener(PlayDashAnimation);
+            
+            _mainMaterial = mainRenderer.material;
         }
 
         private void Update()
         {
             if (ThisCharacter.state.HasFlag(CharacterState.Fire))
             {
-                mainRenderer.color = new Color(1, 0.35f, 0.2f);
+                _mainMaterial.SetInt("_IsBurn", 1);
             }
             else
             {
-                mainRenderer.color = Color.white;
+                _mainMaterial.SetInt("_IsBurn", 0);
             }
+            mainRenderer.material = _mainMaterial;
         }
 
         private void PlayMoveAnimation(Vector2 dir)
@@ -73,13 +76,22 @@ namespace Behaviours
             _thisAnimator.SetTrigger(TrgAttack);
         }
         
-        private void PlayDamageAnimation(float value)
+        private void PlayDamageBlink(float value)
         {
-            _thisAnimator.SetTrigger(TrgDamage);
+            if(gameObject.activeSelf)
+                StartCoroutine(BlinkCoroutine());
+        }
+        
+        private IEnumerator BlinkCoroutine()
+        {
+            _mainMaterial.SetInt("_IsBlink", 1);
+            mainRenderer.material = _mainMaterial;
+            yield return new WaitForSeconds(0.2f);
+            _mainMaterial.SetInt("_IsBlink", 0);
+            mainRenderer.material = _mainMaterial;
         }
         private void PlayDeathAnimation()
         {
-            _thisAnimator.SetBool(IsDead, true);
             _thisAnimator.SetTrigger(TrgDeath);
         }
         private void StopMoveAnimation() => PlayMoveAnimation(Vector2.zero);
