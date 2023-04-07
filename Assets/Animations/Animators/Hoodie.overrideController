@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Hoodie
+  m_Controller: {fileID: 9100000, guid: e5c8738d74b0ec34789dbcab6741003c, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: b07293fc939cd204bb7f77f43bfe845f, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 502a9815cbb9adf4086bfe3b7dc7aa0b, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 4731f1d85404aa543819c1f21ef6e38c, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: bec55f7c881549a4c8fb6c20e87adcc1, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 6d4776bc922d69346983ee7104e22676, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 6be9ff536e9825347abe05c03a567d62, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 0bc6d2afa024a6f47bb99d45bfd5a5f4, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: e71d26bdab1f75a4f8e45ffa40838788, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: fa91514294385954fa678f11b2b7f5ac, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 0424690405447504791dea5002db5d2c, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 0b3d5d7efd90d9f49adbb5efa5c0d91d, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: de59323589c869947bb7be9ab2c4d2b8, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 136ea8de6e479f54baa357bfb20262dd, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 346617384b4c76945b9bf2e7231b1606, type: 2}
