@@ -21,7 +21,7 @@ namespace UI
             else if (_isOpen == 2) Close();
         }
         
-        public void Open()
+        public void Open() 
         {
             _isOpen = 1;
             var seq = DOTween.Sequence();
