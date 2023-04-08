@@ -17,6 +17,7 @@ namespace Behaviours
         public Action OnDamage;
         public Action OnCost;
         public Action OnFire;
+        public Action OnDie;
         public float fireTime = 1f;
         public float fireDamage = 1;
         public float fireInterval = 0.2f;
@@ -27,8 +28,13 @@ namespace Behaviours
             base.Awake();
             ThisCharacter.OnDamage += Damage;
             ThisCharacter.OnFire += () => _fireContainTimer = 0;
+        }
+
+        private void OnEnable()
+        {
             currentHealth = maxHealth;
             currentMana = maxMana;
+            Damage(0);
         }
 
         protected virtual void Update()
@@ -93,9 +99,11 @@ namespace Behaviours
             OnDamage?.Invoke();
         }
 
-        public void Die()
+        public virtual void Die()
         {
-            gameObject.SetActive(false);
+            ThisCharacter.state = CharacterState.Sleep;
+            OnDie?.Invoke();
+            PoolManager.Instance.DePool(ThisCharacter.gameObject);
         }
         
         public void Remove()

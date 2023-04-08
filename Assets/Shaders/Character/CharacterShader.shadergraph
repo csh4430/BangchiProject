@@ -224,8 +224,8 @@
     ],
     "m_VertexContext": {
         "m_Position": {
-            "x": 686.0000610351563,
-            "y": -153.0
+            "x": 1070.0,
+            "y": -149.00003051757813
         },
         "m_Blocks": [
             {
@@ -241,8 +241,8 @@
     },
     "m_FragmentContext": {
         "m_Position": {
-            "x": 617.0,
-            "y": 108.99999237060547
+            "x": 1001.0001220703125,
+            "y": 112.99999237060547
         },
         "m_Blocks": [
             {
@@ -1034,7 +1034,7 @@
     "hlslDeclarationOverride": 0,
     "m_Hidden": false,
     "m_Value": {
-        "m_SerializedTexture": "{\"texture\":{\"fileID\":2800000,\"guid\":\"f7ab8651de80b2342869bc81c1ba9bfe\",\"type\":3}}",
+        "m_SerializedTexture": "{\"texture\":{\"fileID\":10300,\"guid\":\"0000000000000000f000000000000000\",\"type\":0}}",
         "m_Guid": ""
     },
     "isMainTexture": false,

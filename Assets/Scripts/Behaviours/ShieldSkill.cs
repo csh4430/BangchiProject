@@ -8,6 +8,7 @@ namespace Behaviours
     public class ShieldSkill : CharacterSkill
     {
         [SerializeField] private float shieldTime = 3f;
+        [SerializeField] private ParticleSystem shieldParticle;
         private CharacterStat _stat;
 
         protected override void Awake()
@@ -32,6 +33,7 @@ namespace Behaviours
             if (isSkillActive) return;
             if (!canSkillActive) return;
             base.Skill();
+            shieldParticle.Play();
             _stat.ArmedShield(300f);
             ThisCharacter.RemoveState(CharacterState.Skill);
             StartCoroutine(ShieldCoroutine());

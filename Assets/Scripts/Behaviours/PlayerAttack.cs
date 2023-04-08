@@ -39,13 +39,14 @@ namespace Behaviours
             _characterStat.Cost(bullet.manaCost);
             
             if(_targetFinder.AttackTarget == null) return;
-            var dir = _targetFinder.AttackTarget.transform.position -attackTrm.position;
+            var dir = (_targetFinder.AttackTarget.transform.position + Vector3.up * 0.5f) - attackTrm.position;
             var size = (dir).magnitude;
             attackTrm.localScale = new Vector3(size, 1f, 1);
             var rot = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
             attackTrm.localRotation = Quaternion.Euler(0, 0, rot);
             bullet.gameObject.SetActive(true);
             bullet.targetFinder = _targetFinder;
+            OnFire?.Invoke();
         }
     }
 }

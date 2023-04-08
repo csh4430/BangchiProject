@@ -43,14 +43,19 @@ namespace Behaviours
                 else
                     AttackTarget = null;
             }
+            else
+            {
+                AttackTarget = null;
+            }
         }
 
         private void FindTarget()
         {
             var enemies = GameManager.Instance.characters.FindAll(c => c != thisCharacter).OrderBy(c => Vector2.Distance(transform.position, c.transform.position));
             var activeEnemies = enemies.Where(e => e.gameObject.activeSelf);
+            var attackableEnemies = activeEnemies.Where(e => Vector2.Distance(transform.position, e.transform.position) <= attackRange);
             var characters = activeEnemies.ToList();
-            _detectedCount = characters.Count();
+            _detectedCount = attackableEnemies.Count();
             var closest = characters.FirstOrDefault();
             if (closest == ChaseTarget) return;
             ChaseTarget = closest;

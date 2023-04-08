@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using Behaviours;
+using Managers;
+using Tools;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -13,10 +15,11 @@ namespace Characters.Players
         protected override void Awake()
         {
             base.Awake();
+            Define.Player = this;
             OnStop += Sleep;
+            FadeManager.Instance.InitFade();
+            FadeManager.Instance.FadeOut(3f, null);
         }
-
-        
 
         private void Update()
         {

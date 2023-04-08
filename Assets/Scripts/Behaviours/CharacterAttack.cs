@@ -9,6 +9,7 @@ namespace Behaviours
         protected TargetFinder _targetFinder;
         protected Character _target;
         public Action<float> OnAttack;
+        public Action OnFire;
 
         protected override void Awake()
         {

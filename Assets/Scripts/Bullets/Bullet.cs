@@ -1,6 +1,7 @@
 ﻿using System;
 using Behaviours;
 using Characters;
+using Managers;
 using UnityEngine;
 
 namespace Bullets
@@ -15,7 +16,7 @@ namespace Bullets
         public virtual void GiveDamage()
         {
             if(targetFinder.AttackTarget == null) return;
-            targetFinder.AttackTarget.OnDamage?.Invoke(damage);
+            targetFinder.AttackTarget.OnDamage?.Invoke(damage * StatManager.Instance.statList.stats[0].multiplier);
         }
         
         public void Disable()

@@ -6,7 +6,6 @@ namespace Tools
 {
     public static class Define
     {
-        private static Player _player;
-        public static Player Player => _player ?? (_player = GameObject.FindObjectOfType<Player>());
+        public static Player Player;
     }
 }

@@ -38,7 +38,6 @@ namespace Characters
 
         protected virtual void Awake()
         {
-            GameManager.Instance.characters.Add(this);
             OnMove += (v) => DoState(CharacterState.Moving);
             OnMove += (v) => RemoveState(CharacterState.Attacking);
             OnDie += () => DoState(CharacterState.Death);
@@ -50,6 +49,12 @@ namespace Characters
             _targetFinder = GetComponent<TargetFinder>();
             _targetFinder.attackRange = attackRange;
         }
+
+        private void OnEnable()
+        {
+            GameManager.Instance.characters.Add(this);
+        }
+
         protected void Chase()
         {
             if (state.HasFlag(CharacterState.Sleep))

@@ -1,6 +1,7 @@
 ﻿using System;
 using Behaviours;
 using Characters;
+using Managers;
 using UnityEngine;
 
 namespace Bullets
@@ -27,7 +28,7 @@ namespace Bullets
             {
                 if (collider.TryGetComponent(out Character character))
                 {
-                    character.OnDamage?.Invoke(extraDamage);
+                    character.OnDamage?.Invoke(extraDamage * StatManager.Instance.statList.stats[0].multiplier);
                 }
             }
         }

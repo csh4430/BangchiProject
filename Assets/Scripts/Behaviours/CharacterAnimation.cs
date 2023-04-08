@@ -39,6 +39,9 @@ namespace Behaviours
             var dash = ThisCharacter.GetComponent<DashSkill>();
             if(dash != null)
                 dash.OnSkill.AddListener(PlayDashAnimation);
+            var stat = ThisCharacter.GetComponent<CharacterStat>();
+            if(stat != null)
+                stat.OnDie += ReInit;
             
             _mainMaterial = mainRenderer.material;
         }
@@ -109,7 +112,11 @@ namespace Behaviours
             if (dir.x == 0) return;
             _lastDir = dir.x;
             anchorTransform.localScale = new Vector3(_lastDir, 1, 1);
-            
+        }
+
+        private void ReInit()
+        {
+            _mainMaterial.SetInt("IsBlink", 0);
         }
     }
 }

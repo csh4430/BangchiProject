@@ -39,7 +39,7 @@ namespace Bullets
             {
                 if (collider.TryGetComponent(out Character character))
                 {
-                    character.OnDamage?.Invoke(fireDamage);
+                    character.OnDamage?.Invoke(fireDamage * StatManager.Instance.statList.stats[0].multiplier);
                     character.OnFire?.Invoke();
                 }
             }

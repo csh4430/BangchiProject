@@ -18,6 +18,7 @@ namespace Bullets
         public override void GiveDamage()
         {
             base.GiveDamage();
+            if(targetFinder.AttackTarget == null) return;
             particleTrm.position = targetFinder.AttackTarget.transform.position;
             particleTrm.gameObject.SetActive(true);
         }

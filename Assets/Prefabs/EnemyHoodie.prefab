@@ -135,13 +135,14 @@ GameObject:
   - component: {fileID: 8888902405559461632}
   - component: {fileID: 8888902405559461634}
   - component: {fileID: 8888902405559461635}
+  - component: {fileID: 2595051614210454431}
   m_Layer: 6
   m_Name: EnemyHoodie
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8888902405559461657
 Transform:
   m_ObjectHideFlags: 0
@@ -174,6 +175,8 @@ MonoBehaviour:
   state: 1
   chaseRange: 1
   attackRange: 1
+  dropItem: {fileID: 2157821670306297125, guid: b52d8f39a83b42f42a831b9419f71bcd, type: 3}
+  maxDropCount: 50
 --- !u!61 &8888902405559461662
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -187,7 +190,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 0.5}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -370,6 +373,20 @@ MonoBehaviour:
   AttackTarget: {fileID: 0}
   attackRange: 1
   delay: 0.2
+--- !u!114 &2595051614210454431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8888902405559461655}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da329dc1d982443aa5481966d7eb1820, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainSprite: {fileID: 8888902404109307684}
+  shadowSprite: {fileID: 0}
 --- !u!1001 &1060820516537913381
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -487,7 +504,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8612786485875800950, guid: f126b4b7333baa74f9d3de3026a1f424, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.25
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 8612786485875800950, guid: f126b4b7333baa74f9d3de3026a1f424, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
