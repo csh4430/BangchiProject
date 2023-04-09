@@ -1,4 +1,5 @@
-﻿using DG.Tweening;
+﻿using System;
+using DG.Tweening;
 using Resources;
 using TMPro;
 using UI;
@@ -15,8 +16,10 @@ namespace Managers
         [Space]
         [SerializeField] private Transform upgradePanelParent;
         [SerializeField] private GameObject upgradePanelPrf;
+        [Space]
+        [SerializeField] private GameObject soundPanelParent;
+        [SerializeField] private GameObject soundPanelPrf;
         private int _coinCount = 0;
-        
         private void Awake()
         {
             Instance = this;
@@ -27,6 +30,7 @@ namespace Managers
             ResourceManager.Instance.OnCoinCountInit += InitCoinCount;
             ResourceManager.Instance.OnCoinCountAdded += UpdateCoinCount;
             InitUI(StatManager.Instance.statList);
+            InitUI(SoundManager.Instance.soundList);
         }
 
         private void InitUI(StatList statList)
@@ -36,6 +40,16 @@ namespace Managers
                 var obj = Instantiate(upgradePanelPrf, upgradePanelParent);
                 var upgradePanel = obj.GetComponent<UpgradePanel>();
                 upgradePanel.SetData(stat);
+            }
+        }
+        
+        private void InitUI(SoundList soundList)
+        {
+            foreach (var sound in soundList.sounds)
+            {
+                var obj = Instantiate(soundPanelPrf, soundPanelParent.transform);
+                var soundPanel = obj.GetComponent<SoundSlider>();
+                soundPanel.SetData(sound);
             }
         }
         

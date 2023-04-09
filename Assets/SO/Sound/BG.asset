@@ -9,9 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01b1644e75594a9d9880aaed286f22cf, type: 3}
-  m_Name: Damage
+  m_Script: {fileID: 11500000, guid: 00b843e9d427410795ff20eb2ce31b47, type: 3}
+  m_Name: BG
   m_EditorClassIdentifier: 
-  icon: {fileID: 21300000, guid: 7a827ccf0a4eacd4c96712266cdac154, type: 3}
-  statName: ATK
-  level: 1
+  type: BG
+  value: 0.5

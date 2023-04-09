@@ -1,18 +1,20 @@
 ﻿using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace UI
 {
-    public class Shop : MonoBehaviour
+    public class SlidingPanel : MonoBehaviour
     {
-        [SerializeField] private Button _toggleButton;
+        [SerializeField] private int openPosition;
+        [SerializeField] private Button toggleButton;
         private RectTransform _rectTransform => transform as RectTransform;
         private int _isOpen = 0;
         
         private void Start()
         {
-            _toggleButton.onClick.AddListener(Toggle);
+            toggleButton.onClick.AddListener(Toggle);
         }
         
         public void Toggle()
@@ -25,7 +27,7 @@ namespace UI
         {
             _isOpen = 1;
             var seq = DOTween.Sequence();
-            seq.Append(_rectTransform.DOPivotX(0, 0.3f));
+            seq.Append(_rectTransform.DOPivotX(1 ^ openPosition, 0.3f));
             seq.AppendCallback(() =>
             {
                 _isOpen = 2;
@@ -36,7 +38,7 @@ namespace UI
         public void Close()
         {
             var seq = DOTween.Sequence();
-            seq.Append(_rectTransform.DOPivotX(1, 0.3f));   
+            seq.Append(_rectTransform.DOPivotX(0 ^ openPosition, 0.3f));   
             seq.AppendCallback(() =>
             {
                 _isOpen = 0;

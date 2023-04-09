@@ -17,6 +17,7 @@ namespace Bullets
         private void Awake()
         {
             transform.localScale *= fireRange;
+            AudioManager.Instance.PlaySound(AudioManager.ClipType.Fire, AudioManager.AudioType.SFX, 1f, transform.position);
         }
 
         private void Update()

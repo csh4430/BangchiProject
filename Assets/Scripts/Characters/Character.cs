@@ -57,6 +57,7 @@ namespace Characters
 
         protected void Chase()
         {
+            if (state.HasFlag(CharacterState.Attacking)) return;
             if (state.HasFlag(CharacterState.Sleep))
             {
                 if(_targetFinder.ChaseTarget == null) return;

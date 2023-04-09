@@ -22,6 +22,7 @@ namespace UI
         private void Start()
         {
             upgradeButton.onClick.AddListener(Upgrade);
+            upgradeButton.onClick.AddListener(AudioManager.Instance.ButtonSound);
         }
 
         public void SetData(StatSO stat)

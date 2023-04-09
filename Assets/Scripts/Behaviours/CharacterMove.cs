@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using Characters;
 using Characters.Enemies;
+using Managers;
 using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -22,7 +23,7 @@ namespace Behaviours
             _thisRigidbody2D = GetComponent<Rigidbody2D>();
             ThisCharacter.OnMove += Translate;
             ThisCharacter.OnChase += Chase;
-            ThisCharacter.OnStop = StopMove;
+            ThisCharacter.OnStop += StopMove;
             ThisCharacter.OnKnockBack += KnockBack;
         }
 
@@ -55,6 +56,7 @@ namespace Behaviours
         private void Move(Vector2 direction)
         {
             if (ThisCharacter.state.HasFlag(CharacterState.KnockBack)) return;
+            AudioManager.Instance.SoundOn(AudioManager.ClipType.WalkSound, transform);
             direction = direction.normalized;
             _thisRigidbody2D.velocity = direction * speed;
         }
@@ -76,6 +78,7 @@ namespace Behaviours
         private void StopMove()
         {
             _thisRigidbody2D.velocity = Vector2.zero;
+            AudioManager.Instance.SoundOff(AudioManager.ClipType.WalkSound, transform);
         }
     }
 }

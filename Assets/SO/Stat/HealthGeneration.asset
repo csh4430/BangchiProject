@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01b1644e75594a9d9880aaed286f22cf, type: 3}
   m_Name: HealthGeneration
   m_EditorClassIdentifier: 
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: fdc1a7e80c77bf54f867d4956577a202, type: 3}
   statName: HP Gen
-  level: 3
+  level: 1

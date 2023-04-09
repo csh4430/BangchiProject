@@ -37,7 +37,7 @@ namespace Behaviours
 
             if (_target != _targetFinder.AttackTarget) return;
             _characterStat.Cost(bullet.manaCost);
-            
+            AudioManager.Instance.PlaySound(AudioManager.ClipType.Shoot, AudioManager.AudioType.SFX, 0.1f, transform.position);
             if(_targetFinder.AttackTarget == null) return;
             var dir = (_targetFinder.AttackTarget.transform.position + Vector3.up * 0.5f) - attackTrm.position;
             var size = (dir).magnitude;
